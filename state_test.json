@@ -1,0 +1,117 @@
+{
+  "players": {
+    "Alice": {
+      "name": "Alice",
+      "ratingwin": 1200,
+      "wins": 1,
+      "losses": 0,
+      "cups_hit": 3,
+      "match_history": [
+        {
+          "match_id": 0,
+          "results": {
+            "winner": "Team 1",
+            "cups_hit": 3
+          }
+        }
+      ]
+    },
+    "Bob": {
+      "name": "Bob",
+      "ratingwin": 1100,
+      "wins": 1,
+      "losses": 0,
+      "cups_hit": 3,
+      "match_history": [
+        {
+          "match_id": 0,
+          "results": {
+            "winner": "Team 1",
+            "cups_hit": 3
+          }
+        }
+      ]
+    },
+    "Carol": {
+      "name": "Carol",
+      "ratingwin": 1000,
+      "wins": 0,
+      "losses": 1,
+      "cups_hit": 3,
+      "match_history": [
+        {
+          "match_id": 0,
+          "results": {
+            "winner": "Team 1",
+            "cups_hit": 3
+          }
+        }
+      ]
+    },
+    "Dave": {
+      "name": "Dave",
+      "ratingwin": 900,
+      "wins": 0,
+      "losses": 1,
+      "cups_hit": 3,
+      "match_history": [
+        {
+          "match_id": 0,
+          "results": {
+            "winner": "Team 1",
+            "cups_hit": 3
+          }
+        }
+      ]
+    }
+  },
+  "matches": [
+    {
+      "id": null,
+      "team1": [
+        "Alice",
+        "Bob"
+      ],
+      "team2": [
+        "Carol",
+        "Dave"
+      ],
+      "bets": [
+        {
+          "match": null,
+          "team": "Team 1",
+          "amount": 10.0,
+          "player": null,
+          "bet_type": "normal",
+          "details": {},
+          "quota": 1.5,
+          "bettor": "Eve"
+        }
+      ],
+      "ended": true,
+      "results": {
+        "winner": "Team 1",
+        "cups_hit": 3
+      }
+    }
+  ],
+  "bettors": {
+    "Eve": {
+      "name": "Eve",
+      "kontostand": 105.0,
+      "bets": [
+        {
+          "match": null,
+          "team": "Team 1",
+          "amount": 10.0,
+          "player": null,
+          "bet_type": "normal",
+          "details": {},
+          "quota": 1.5,
+          "bettor": "Eve"
+        }
+      ]
+    }
+  },
+  "next_match_id": 0
+}

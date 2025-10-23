@@ -1,0 +1,354 @@
+{
+  "players": {
+    "smion": {
+      "name": "smion",
+      "ratingwin": 1500.0,
+      "wins": 2,
+      "losses": 0,
+      "cups_hit": 0,
+      "match_history": [
+        {
+          "match_id": 0,
+          "results": {
+            "winner": "Team 1",
+            "score": {
+              "team1": 0,
+              "team2": 0
+            },
+            "cups_hit": 0,
+            "cups_by_player": {
+              "smion": 0,
+              "edon": 0,
+              "leo": 0,
+              "karstn": 0
+            },
+            "bitchcup": false,
+            "deathcup": false,
+            "nacktemeile": false,
+            "overtime": false
+          }
+        },
+        {
+          "match_id": 1,
+          "results": {
+            "winner": "Team 1",
+            "score": {
+              "team1": 0,
+              "team2": 0
+            },
+            "cups_hit": 0,
+            "cups_by_player": {
+              "smion": 0,
+              "edon": 0,
+              "leo": 0,
+              "karstn": 0
+            },
+            "bitchcup": false,
+            "deathcup": false,
+            "nacktemeile": false,
+            "overtime": false
+          }
+        }
+      ],
+      "rd": 200.0
+    },
+    "edon": {
+      "name": "edon",
+      "ratingwin": 1500.0,
+      "wins": 2,
+      "losses": 0,
+      "cups_hit": 0,
+      "match_history": [
+        {
+          "match_id": 0,
+          "results": {
+            "winner": "Team 1",
+            "score": {
+              "team1": 0,
+              "team2": 0
+            },
+            "cups_hit": 0,
+            "cups_by_player": {
+              "smion": 0,
+              "edon": 0,
+              "leo": 0,
+              "karstn": 0
+            },
+            "bitchcup": false,
+            "deathcup": false,
+            "nacktemeile": false,
+            "overtime": false
+          }
+        },
+        {
+          "match_id": 1,
+          "results": {
+            "winner": "Team 1",
+            "score": {
+              "team1": 0,
+              "team2": 0
+            },
+            "cups_hit": 0,
+            "cups_by_player": {
+              "smion": 0,
+              "edon": 0,
+              "leo": 0,
+              "karstn": 0
+            },
+            "bitchcup": false,
+            "deathcup": false,
+            "nacktemeile": false,
+            "overtime": false
+          }
+        }
+      ],
+      "rd": 200.0
+    },
+    "leo": {
+      "name": "leo",
+      "ratingwin": 1500.0,
+      "wins": 0,
+      "losses": 2,
+      "cups_hit": 0,
+      "match_history": [
+        {
+          "match_id": 0,
+          "results": {
+            "winner": "Team 1",
+            "score": {
+              "team1": 0,
+              "team2": 0
+            },
+            "cups_hit": 0,
+            "cups_by_player": {
+              "smion": 0,
+              "edon": 0,
+              "leo": 0,
+              "karstn": 0
+            },
+            "bitchcup": false,
+            "deathcup": false,
+            "nacktemeile": false,
+            "overtime": false
+          }
+        },
+        {
+          "match_id": 1,
+          "results": {
+            "winner": "Team 1",
+            "score": {
+              "team1": 0,
+              "team2": 0
+            },
+            "cups_hit": 0,
+            "cups_by_player": {
+              "smion": 0,
+              "edon": 0,
+              "leo": 0,
+              "karstn": 0
+            },
+            "bitchcup": false,
+            "deathcup": false,
+            "nacktemeile": false,
+            "overtime": false
+          }
+        }
+      ],
+      "rd": 200.0
+    },
+    "karstn": {
+      "name": "karstn",
+      "ratingwin": 1500.0,
+      "wins": 0,
+      "losses": 2,
+      "cups_hit": 0,
+      "match_history": [
+        {
+          "match_id": 0,
+          "results": {
+            "winner": "Team 1",
+            "score": {
+              "team1": 0,
+              "team2": 0
+            },
+            "cups_hit": 0,
+            "cups_by_player": {
+              "smion": 0,
+              "edon": 0,
+              "leo": 0,
+              "karstn": 0
+            },
+            "bitchcup": false,
+            "deathcup": false,
+            "nacktemeile": false,
+            "overtime": false
+          }
+        },
+        {
+          "match_id": 1,
+          "results": {
+            "winner": "Team 1",
+            "score": {
+              "team1": 0,
+              "team2": 0
+            },
+            "cups_hit": 0,
+            "cups_by_player": {
+              "smion": 0,
+              "edon": 0,
+              "leo": 0,
+              "karstn": 0
+            },
+            "bitchcup": false,
+            "deathcup": false,
+            "nacktemeile": false,
+            "overtime": false
+          }
+        }
+      ],
+      "rd": 200.0
+    }
+  },
+  "matches": [
+    {
+      "id": 0,
+      "team1": [
+        "smion",
+        "edon"
+      ],
+      "team2": [
+        "leo",
+        "karstn"
+      ],
+      "bets": [
+        {
+          "match": 0,
+          "team": "Team 1",
+          "amount": 2.0,
+          "player": null,
+          "bet_type": "normal",
+          "details": {},
+          "quota": 1.8283541156251144,
+          "bettor": "sabrina"
+        }
+      ],
+      "ended": true,
+      "results": {
+        "winner": "Team 1",
+        "score": {
+          "team1": 0,
+          "team2": 0
+        },
+        "cups_hit": 0,
+        "cups_by_player": {
+          "smion": 0,
+          "edon": 0,
+          "leo": 0,
+          "karstn": 0
+        },
+        "bitchcup": false,
+        "deathcup": false,
+        "nacktemeile": false,
+        "overtime": false
+      }
+    },
+    {
+      "id": 1,
+      "team1": [
+        "smion",
+        "edon"
+      ],
+      "team2": [
+        "leo",
+        "karstn"
+      ],
+      "bets": [
+        {
+          "match": 1,
+          "team": "Team 1",
+          "amount": 2.0,
+          "player": null,
+          "bet_type": "normal",
+          "details": {},
+          "quota": 1.8283541156251144,
+          "bettor": "sabrina"
+        },
+        {
+          "match": 1,
+          "team": null,
+          "amount": 10.0,
+          "player": null,
+          "bet_type": "nacktemeile_overall",
+          "details": {},
+          "quota": 25.768676215789984,
+          "bettor": "fetty"
+        }
+      ],
+      "ended": true,
+      "results": {
+        "winner": "Team 1",
+        "score": {
+          "team1": 0,
+          "team2": 0
+        },
+        "cups_hit": 0,
+        "cups_by_player": {
+          "smion": 0,
+          "edon": 0,
+          "leo": 0,
+          "karstn": 0
+        },
+        "bitchcup": false,
+        "deathcup": false,
+        "nacktemeile": false,
+        "overtime": false
+      }
+    }
+  ],
+  "bettors": {
+    "sabrina": {
+      "name": "sabrina",
+      "kontostand": 1.3134164625004576,
+      "bets": [
+        {
+          "match": 0,
+          "team": "Team 1",
+          "amount": 2.0,
+          "player": null,
+          "bet_type": "normal",
+          "details": {},
+          "quota": 1.8283541156251144,
+          "bettor": "sabrina"
+        },
+        {
+          "match": 1,
+          "team": "Team 1",
+          "amount": 2.0,
+          "player": null,
+          "bet_type": "normal",
+          "details": {},
+          "quota": 1.8283541156251144,
+          "bettor": "sabrina"
+        }
+      ]
+    },
+    "fetty": {
+      "name": "fetty",
+      "kontostand": -10.0,
+      "bets": [
+        {
+          "match": 1,
+          "team": null,
+          "amount": 10.0,
+          "player": null,
+          "bet_type": "nacktemeile_overall",
+          "details": {},
+          "quota": 25.768676215789984,
+          "bettor": "fetty"
+        }
+      ]
+    }
+  },
+  "next_match_id": 2,
+  "bank": 8.686583537499542
+}
