@@ -179,7 +179,7 @@ def main():
             print("  end_match <match_id> <winner> [special_results]")
             print("  show_bets [match_id]    # show bets for a match (defaults to last)")
             print("  list_bettors")
-            print("  list_players")
+            print("  players")
             print("  list_matches")
             print("  save <filename>")
             print("  load <filename>")
@@ -466,15 +466,17 @@ def main():
                 try:
                     n = int(parts[1])
                 except Exception:
-                    print("Invalid number for list_players. Usage: list_players [n]")
+                    print("Invalid number for players. Usage: players [n]")
                     continue
 
-            # If n is provided, compute stats from first n matches (by match_id index)
+            # If n is provided, compute stats from the first n matches for each player with different partners
             if n is not None:
                 for name, player in players.items():
                     wins = 0
                     losses = 0
                     cups = 0
+                    seen_partners = set()
+                    selected_recs = []
                     for rec in player.match_history:
                         mid = rec.get("match_id")
                         if mid is None:
@@ -483,12 +485,23 @@ def main():
                             mid_i = int(mid)
                         except Exception:
                             continue
-                        if mid_i >= n:
-                            continue
-                        # try to find match by index
                         if mid_i < 0 or mid_i >= len(matches):
                             continue
                         match = matches[mid_i]
+                        # find partner
+                        if player in match.team1:
+                            partner = match.team1[0] if match.team1[1] == player else match.team1[1]
+                        else:
+                            partner = match.team2[0] if match.team2[1] == player else match.team2[1]
+                        if partner.name not in seen_partners:
+                            selected_recs.append(rec)
+                            seen_partners.add(partner.name)
+                            if len(selected_recs) == n:
+                                break
+                    # Now compute stats from selected_recs
+                    for rec in selected_recs:
+                        mid = rec.get("match_id")
+                        match = matches[int(mid)]
                         results = rec.get("results", {})
                         winner = results.get("winner")
                         # determine team for player
@@ -509,7 +522,7 @@ def main():
                                 cups += int(results.get("cups_hit", 0))
                             except Exception:
                                 pass
-                    print(f"{name}: Wins={wins}, Losses={losses}, Cups Hit={cups} (first {n} matches)")
+                    print(f"{name}: Wins={wins}, Losses={losses}, Cups Hit={cups} (first {n} matches with different partners for this player)")
             else:
                 for name, player in players.items():
                     print(f"{name}: Wins={player.wins}, Losses={player.losses}, Cups Hit={player.cups_hit}, RD = {round(player.rd)}")
