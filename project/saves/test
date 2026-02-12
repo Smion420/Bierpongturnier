@@ -1,0 +1,79 @@
+{
+  "meta": {
+    "version": 1
+  },
+  "players": {
+    "next_id": 5,
+    "items": [
+      {
+        "id": 1,
+        "name": "smion",
+        "rating": 1200,
+        "matchamount": 420,
+        "rd": 11.235955056179776
+      },
+      {
+        "id": 2,
+        "name": "sammy",
+        "rating": 1700,
+        "matchamount": 4,
+        "rd": 172.41379310344828
+      },
+      {
+        "id": 3,
+        "name": "karstn",
+        "rating": 800,
+        "matchamount": 120,
+        "rd": 34.48275862068966
+      },
+      {
+        "id": 4,
+        "name": "edon",
+        "rating": 1699,
+        "matchamount": 80,
+        "rd": 47.61904761904762
+      }
+    ]
+  },
+  "bettors": {
+    "next_id": 2,
+    "items": [
+      {
+        "id": 1,
+        "name": "sabrina",
+        "kontostand": 0.0
+      }
+    ]
+  },
+  "matches": {
+    "next_id": 2,
+    "items": [
+      {
+        "id": 1,
+        "team1": [
+          1,
+          2
+        ],
+        "team2": [
+          3,
+          4
+        ],
+        "bets": [],
+        "ended": false,
+        "winner": null,
+        "remaining": null,
+        "deathcup": false,
+        "deathcup_player": null,
+        "bitchcup": false,
+        "bitchcup_player": null,
+        "nacktemeile_overall": false,
+        "nacktemeile_player": null,
+        "overtime": false
+      }
+    ]
+  },
+  "bets": {
+    "next_id": 1,
+    "items": []
+  }
+}

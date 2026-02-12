@@ -1,8 +1,8 @@
 
 import json
 from typing import Dict, List, Tuple, Any, Optional
-from quoten import calculate_quota
-from sachen import Player, Match, Bettor, Bet, BetType, compute_payouts
+from project.domain.quoten import calculate_quota
+from domain.sachen import Player, Match, Bettor, Bet, BetType, compute_payouts
 
 
 # Stable incrementing id for matches (persisted)
@@ -84,25 +84,6 @@ def prompt_results_for_match(match: Match, players) -> Dict[str, Any]:
             winner = "Team 2"
         else:
             winner = winner_input
-
-    # Per-player cups prompt
-    '''
-    cups_by_player: Dict[str, int] = {}
-    for p in match.team1 + match.team2:
-        while True:
-            val = input(f"How many cups did {p.name} hit? (enter integer, or blank for 0): ").strip()
-            if val == "":
-                cups_by_player[p.name] = 0
-                break
-            try:
-                cups_by_player[p.name] = int(val)
-                break
-            except Exception:
-                print("Please enter a valid integer or leave blank for 0.")
-
-    team1_score = sum(cups_by_player[p.name] for p in match.team1)
-    team2_score = sum(cups_by_player[p.name] for p in match.team2)
-    '''
     
     while True:
         val = input(f"How many cups stood before the losing team at the end?: ").strip()
@@ -137,7 +118,6 @@ def prompt_results_for_match(match: Match, players) -> Dict[str, Any]:
 
 def main():
     players = {}
-    matches = []
     dirty = False  # tracks whether there are unsaved changes
 
     print("Griasdi bei der ersten Wal Bierpongliga!")
@@ -348,7 +328,7 @@ def main():
             print("Last matches:")
             for i in range(max(0, len(matches)-5), len(matches)):
                 m = matches[i]
-                print(f"{i}: {m.get_teams()} Ended={m.ended} Winner={m.results.get('winner') if m.results else 'N/A'}")
+                print(f"{i}: {m.get_teams()} Ended={m.ended} Winner={m.winner if m.winner else 'N/A'}")
             try:
                 mid = int(input("Enter match id to change: ").strip())
             except Exception:
@@ -358,15 +338,29 @@ def main():
                 print("Unknown match id.")
                 continue
             match = matches[mid]
-            if not match.ended or not match.results:
+            if not match.ended or not match.winner:
                 print("That match has no results to change. Use end_match to end it first.")
                 continue
             # display previous results
             print("Previous results:")
-            print(json.dumps(match.results, indent=2))
+            # show current stored attributes
+            prev = {
+                "winner": match.winner,
+                "remaining": match.remaining,
+                "deathcup": match.deathcup,
+                "deathcup_player": match.deathcup_player,
+                "bitchcup": match.bitchcup,
+                "bitchcup_player": match.bitchcup_player,
+                "nacktemeile_overall": match.nacktemeile_overall,
+                "nacktemeile_player": match.nacktemeile_player,
+                "overtime": match.overtime,
+                "cups_by_player": match.cups_by_player,
+                "cups_hit": match.cups_hit,
+            }
+            print(json.dumps(prev, indent=2))
 
             # Reverse previous payouts and player stats
-            prev_payouts = compute_payouts(match, match.results)
+            prev_payouts = compute_payouts(match)
             # subtract payouts
             for bettor_name, amount in prev_payouts.items():
                 bt = Bettor.bettors.get(bettor_name)
@@ -375,21 +369,37 @@ def main():
                     # bank receives the amount back when reversal
                     Bettor.bank += amount
             # reverse player wins/losses and cups
-            prev_results = match.results
+            prev_results = prev
             for player in match.team1 + match.team2:
                 # remove last match_history entry for this match id if it matches
                 # match id in records are the index mid
                 for irec in range(len(player.match_history)-1, -1, -1):
                     rec = player.match_history[irec]
                     if rec.get("match_id") == mid:
+                        # determine previous result either from stored results (legacy) or from match object
+                        prev_winner = None
+                        prev_cups_by_player = None
+                        prev_cups_hit = None
+                        if rec.get("results"):
+                            prev_winner = rec.get("results", {}).get("winner")
+                            prev_cups_by_player = rec.get("results", {}).get("cups_by_player")
+                            prev_cups_hit = rec.get("results", {}).get("cups_hit", 0)
+                        else:
+                            # try to resolve from the match object
+                            try:
+                                prev_match = matches[int(mid)]
+                                prev_winner = prev_match.winner
+                                prev_cups_by_player = prev_match.cups_by_player
+                                prev_cups_hit = prev_match.cups_hit
+                            except Exception:
+                                pass
                         # reverse wins/losses
-                        winner = rec.get("results", {}).get("winner")
-                        if winner == ("Team 1" if player in match.team1 else "Team 2"):
+                        if prev_winner == ("Team 1" if player in match.team1 else "Team 2"):
                             player.wins = max(0, player.wins-1)
                         else:
                             player.losses = max(0, player.losses-1)
                         # reverse cups
-                        cbp = rec.get("results", {}).get("cups_by_player")
+                        cbp = prev_cups_by_player
                         if cbp and isinstance(cbp, dict):
                             try:
                                 player.cups_hit -= int(cbp.get(player.name, 0))
@@ -397,7 +407,7 @@ def main():
                                 pass
                         else:
                             try:
-                                player.cups_hit -= int(rec.get("results", {}).get("cups_hit", 0))
+                                player.cups_hit -= int(prev_cups_hit or 0)
                             except Exception:
                                 pass
                         # remove the history record
@@ -411,10 +421,32 @@ def main():
                 print("Aborted change.")
                 continue
             # zero out old results and set ended True (already ended) then set new results
-            match.results = None
-            # subtracting previous payouts already done; now compute new payouts and apply
-            match.results = new_results
-            new_payouts = compute_payouts(match, new_results)
+            # reset per-match attributes
+            match.winner = None
+            match.remaining = None
+            match.deathcup = False
+            match.deathcup_player = None
+            match.bitchcup = False
+            match.bitchcup_player = None
+            match.nacktemeile_overall = False
+            match.nacktemeile_player = None
+            match.overtime = False
+            match.cups_by_player = None
+            match.cups_hit = None
+            # now set new attributes from the interactive result and compute payouts
+            if new_results:
+                match.winner = new_results.get("winner")
+                match.remaining = new_results.get("remaining")
+                match.deathcup = new_results.get("deathcup", False)
+                match.deathcup_player = new_results.get("deathcup_player")
+                match.bitchcup = new_results.get("bitchcup", False)
+                match.bitchcup_player = new_results.get("bitchcup_player")
+                match.nacktemeile_overall = new_results.get("nacktemeile_overall", False)
+                match.nacktemeile_player = new_results.get("nacktemeile_player")
+                match.overtime = new_results.get("overtime", False)
+                match.cups_by_player = new_results.get("cups_by_player")
+                match.cups_hit = new_results.get("cups_hit")
+            new_payouts = compute_payouts(match)
             for bettor_name, amount in new_payouts.items():
                 bt = Bettor.bettors.get(bettor_name)
                 if bt:
@@ -425,7 +457,12 @@ def main():
 
             # record match in player histories and update wins/losses/cups
             for player in match.team1 + match.team2:
-                player.record_match(match, new_results, match_id=mid)
+                # append only match id to player history; details can be resolved from match attributes
+                try:
+                    player.match_history.append({"match_id": mid})
+                except Exception:
+                    # if player object lacks match_history, create it
+                    player.match_history = [{"match_id": mid}]
             dirty = True
             print(f"Match {mid} changed.")
         elif cmd.startswith("save"):
@@ -502,8 +539,7 @@ def main():
                     for rec in selected_recs:
                         mid = rec.get("match_id")
                         match = matches[int(mid)]
-                        results = rec.get("results", {})
-                        winner = results.get("winner")
+                        winner = match.winner
                         # determine team for player
                         team = "Team 1" if player in match.team1 else "Team 2"
                         if winner == team:
@@ -511,7 +547,7 @@ def main():
                         else:
                             losses += 1
                         # add per-player cups if present
-                        cbp = results.get("cups_by_player")
+                        cbp = match.cups_by_player
                         if isinstance(cbp, dict):
                             try:
                                 cups += int(cbp.get(player.name, 0))
@@ -519,7 +555,7 @@ def main():
                                 pass
                         else:
                             try:
-                                cups += int(results.get("cups_hit", 0))
+                                cups += int(match.cups_hit or 0)
                             except Exception:
                                 pass
                     print(f"{name}: Wins={wins}, Losses={losses}, Cups Hit={cups} (first {n} matches with different partners for this player)")
@@ -531,7 +567,7 @@ def main():
                 print(f"{name}: {round(bettor.kontostand, 2)}")
         elif cmd == "matches":
             for i, match in enumerate(matches):
-                print(f"Match {i}: {match.get_teams()} Ended={match.ended} Winner = {match.results.get('winner') if match.results else 'N/A'} remaining cups = {match.results.get('remaining') if match.results else 'N/A'}")
+                print(f"Match {i}: {match.get_teams()} Ended={match.ended} Winner = {match.winner if match.winner else 'N/A'} remaining cups = {match.remaining if match.remaining is not None else 'N/A'}")
         elif cmd.startswith("bets"):
             parts = cmd.split()
             if len(matches) == 0:

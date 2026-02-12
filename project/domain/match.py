@@ -1,30 +1,29 @@
 from typing import Optional, Dict, List
 from domain.player import Player
 from domain.bettor import Bettor
-from domain.enums import BetType
+from domain.enums import BetType, Team, HandicapType
 from domain.bet import Bet
 
 
 class Match:    
     id: Optional[int] = None
-    def __init__(self, team1_players: List[Player], team2_players: List[Player]):
+    def __init__(self, team1_players: List[int], team2_players: List[int]):
         if len(team1_players) != 2 or len(team2_players) != 2:
             raise ValueError("Each team must have exactly 2 players.")
         self.team1 = team1_players
         self.team2 = team2_players
-        self.bets: List['Bet'] = []
+        self.bets: List[int] = []
         self.ended = False
         #results
-        self.winner: Optional[str] = None
+        self.winner: Optional[Team] = None
         self.remaining: Optional[int] = None
         self.deathcup: bool = False
-        self.deathcup_player: Optional[str] = None
+        self.deathcup_player: Optional[int] = None
         self.bitchcup: bool = False
-        self.bitchcup_player: Optional[str] = None
+        self.bitchcup_player: Optional[int] = None
         self.nacktemeile_overall: bool = False
-        self.nacktemeile_player: Optional[str] = None
+        self.nacktemeile_player: Optional[int] = None
         self.overtime: bool = False
-        self.id = Match.amount_of_matches + 1
 
 
     def add_bet(self, bet: 'Bet'):
@@ -57,7 +56,7 @@ class Match:
             Bettor.bank -= payout
 
     
-def compute_payouts(match: Match) -> Dict[str, float]:
+def compute_payouts(match: Match, bets: List) -> Dict[str, float]:
     """Compute payouts per bettor for a match using per-match attributes.
 
     Rewritten with `match/case` for clarity.

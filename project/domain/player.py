@@ -5,8 +5,9 @@ class Player:
     def __init__(self, *,name: str, rating: int = 1500, matchamount: int = 0):
         self.name = name
         self.rating = rating
-        self.rd = 5000/(matchamount + 25) 
-        Player.all_players.append(self)
+        self.matchamount = matchamount
+        self.rd = 5000/(self.matchamount + 25) 
+
 
 
 

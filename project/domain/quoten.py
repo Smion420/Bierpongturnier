@@ -1,6 +1,8 @@
 from math import sqrt, pi, exp
-from typing import Optional, Dict, Any, List
-from sachen import Match, Player, BetType
+from typing import Optional, List
+from domain.enums import BetType, HandicapType, Team
+from domain.player import Player
+
 
 #Es ist bisschen cursed, dass manche bases immer größer 1 sind und manche kleiner 1. Aber das kommt daher, dass sie teilweise als Quote und teilweise als Gewinnwahrschienlichkeit implementiert sind. 
 se = 1500 #Start Elo
@@ -25,12 +27,12 @@ nackte_base = 0.0083 #ist so gewählt, dass ohne modifier für den ratinguntersc
 
 
 
-def calculate_quota(match: Match, bet_type: BetType, team: Optional[str] = None, player: Optional[Player] = None, details: Optional[str] = None, bankroll_of_bank: Optional[float] = None) -> float:
+def calculate_quota(players: list, bet_type: BetType, bankroll_of_bank: float, team: Optional[Team] = None, player: Optional[Player] = None,handicap: Optional[HandicapType] = None) -> float:
     avg_rating_diff = avg_rating_diff_elo/174 #normiert fr glicko 2
     # calculate dynamic bank bonus
     bank_bonus = bank_bonus_lower + (bank_bonus_upper - bank_bonus_lower) * min(1, max(0, (-bankroll_of_bank)/50))
     # helper to compute per-player RD factor (safe). Die 174 kommt aus der Glicko 2 Berechnung, ebenso die ganze Formel
-    def _player_rd_factor(p: "Player") -> float:
+    def _player_rd_factor(p: Player) -> float:
         try:
             rd_val = getattr(p, "rd", 0.0)
             rd_val = rd_val / 174 #174 kommt aus Glicko 2
@@ -40,14 +42,14 @@ def calculate_quota(match: Match, bet_type: BetType, team: Optional[str] = None,
 
     # Build g as a 2D list: [ [team1_factors...], [team2_factors...] ]
     g = [
-        [_player_rd_factor(p) for p in getattr(match, "team1", [])],
-        [_player_rd_factor(p) for p in getattr(match, "team2", [])],
+        [_player_rd_factor(p) for p in players[0]],
+        [_player_rd_factor(p) for p in players[1]],
     ]
 
     # Build a 2D list of ratings: [ [team1_ratings...], [team2_ratings...] ]
     ratings_2d: List[List[float]] = [
-        [getattr(p, "ratingwin", 0.0) for p in getattr(match, "team1", [])],
-        [getattr(p, "ratingwin", 0.0) for p in getattr(match, "team2", [])],
+        [getattr(p, "rating", 0.0) for p in players[0]],
+        [getattr(p, "rating", 0.0) for p in players[1]],
     ]
     # normaliesiere die ratings
     for i in range(2):
@@ -71,23 +73,23 @@ def calculate_quota(match: Match, bet_type: BetType, team: Optional[str] = None,
     Das ist eigentlich quatsch, da hier nicht mit eingeht, wer gewinnt. Also ist der handicap multiplayer für beide Teams immer gleich. 
     '''
     if bet_type == BetType.NORMAL or bet_type == BetType.HANDICAP:
-        if team not in ("Team 1", "Team 2") or player is not None:
+        if team not in (Team.TEAM1, Team.TEAM2) or player is not None:
                 raise ValueError("For NORMAL bets, specify team as 'team1' or 'team2' and no player.")
-        opponent_avg = avg_team2 if team == "Team 1" else avg_team1
-        team_avg = avg_team1 if team == "Team 1" else avg_team2
+        opponent_avg = avg_team2 if team == Team.TEAM1 else avg_team1
+        team_avg = avg_team1 if team == Team.TEAM1 else avg_team2
         base_quota = 1/(1+exp(-avg_g*(team_avg - opponent_avg)/exp_red))
         if bet_type == BetType.NORMAL:
             return 1 / (base_quota * bank_bonus * p0)
         if bet_type == BetType.HANDICAP:
-            if details is None or details not in [1.5,2.5,3.5,4.5]:
+            if handicap is None or handicap not in [HandicapType.H1_5, HandicapType.H2_5, HandicapType.H3_5, HandicapType.H4_5]:
                 raise ValueError("For HANDICAP bets, details must be one of ['1.5','2.5','3.5','4.5'].")
-            elif details == 1.5:
+            elif handicap == HandicapType.H1_5:
                 return 1 / (base_quota * bank_bonus * p1)
-            elif details == 2.5:
+            elif handicap == HandicapType.H2_5:
                 return 1 / (base_quota * bank_bonus * p2)
-            elif details == 3.5:
+            elif handicap == HandicapType.H3_5:
                 return 1 / (base_quota * bank_bonus * p3)
-            elif details == 4.5:
+            elif handicap == HandicapType.H4_5:
                 return 1 / (base_quota * bank_bonus * p4)
             else:
                 raise ValueError("Invalid handicap value. Must be one of [1.5, 2.5, 3.5, 4.5].")
@@ -108,16 +110,16 @@ def calculate_quota(match: Match, bet_type: BetType, team: Optional[str] = None,
         if bet_type ==  BetType.BITCHCUPSPECIFIC:
             if player is None: 
                 raise ValueError ("Es muss ein Spieler angegeben werden für Bitchcupspecificwette")
-            if player == match.team1[0]:
+            if player == players[0][0]:
                 return bitchcup_quota[0][0]
-            elif player == match.team1[1]:
+            elif player == players[0][1]:
                 return bitchcup_quota[0][1]
-            elif player == match.team2[0]:
+            elif player == players[1][0]:
                 return bitchcup_quota[1][0]
-            elif player == match.team2[1]:
+            elif player == players[1][1]:
                 return bitchcup_quota[1][1]
             else:
-                raise ValueError(f"Der Spieler {details} spielt nicht mit")
+                raise ValueError(f"Der Spieler {player.name} spielt nicht mit")
         if bet_type == BetType.BITCHCUPOVERALL:
             #Die logische Konsequenz, auf insgesamt zu wetten sollte die gleiche Quote haben, wie auf alle einzeln zu setzen. Das ist zwar nicht ganz richtig, weil ignoriert wird, dass ja auch 2 Bitchcups getroffen werden
             #können. Aber da wird entspannt drauf geschissen.
@@ -136,13 +138,13 @@ def calculate_quota(match: Match, bet_type: BetType, team: Optional[str] = None,
         if bet_type ==  BetType.NACKTEMEILESPECIFIC:
             if player is None: 
                 raise ValueError ("Es muss ein Spieler angegeben werden für Nackte Meile specificwette")
-            if player == match.team1[0]:
+            if player == players[0][0]:
                 return nackte_quota[0][0]
-            elif player == match.team1[1]:
+            elif player == players[0][1]:
                 return nackte_quota[0][1]
-            elif player == match.team2[0]:
+            elif player == players[1][0]:
                 return nackte_quota[1][0]
-            elif player == match.team2[1]:
+            elif player == players[1][1]:
                 return nackte_quota[1][1]
             else:
                 raise ValueError(f"Der Spieler {player.name} spielt nicht mit")

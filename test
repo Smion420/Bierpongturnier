@@ -1,0 +1,34 @@
+{
+  "players": {
+    "smion": {
+      "name": "smion",
+      "ratingwin": 1000.0,
+      "rd": 200.0
+    },
+    "fetty": {
+      "name": "fetty",
+      "ratingwin": 2000.0,
+      "rd": 200.0
+    },
+    "sammy": {
+      "name": "sammy",
+      "ratingwin": 1000.0,
+      "rd": 200.0
+    },
+    "leo": {
+      "name": "leo",
+      "ratingwin": 1000.0,
+      "rd": 200.0
+    }
+  },
+  "matches": [],
+  "bettors": {
+    "sabrina": {
+      "name": "sabrina",
+      "kontostand": 0.0,
+      "bets": []
+    }
+  },
+  "next_match_id": 0,
+  "bank": 0.0
+}
