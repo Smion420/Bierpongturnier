@@ -99,15 +99,61 @@
     ]
   },
   "bettors": {
-    "next_id": 1,
-    "items": []
+    "next_id": 3,
+    "items": [
+      {
+        "id": 1,
+        "name": "Smion",
+        "kontostand": 0.0
+      },
+      {
+        "id": 2,
+        "name": "Sev",
+        "kontostand": 0.0
+      }
+    ]
   },
   "matches": {
-    "next_id": 1,
-    "items": []
+    "next_id": 2,
+    "items": [
+      {
+        "id": 1,
+        "team1": [
+          2,
+          12
+        ],
+        "team2": [
+          5,
+          1
+        ],
+        "bets": [],
+        "ended": false,
+        "winner": null,
+        "remaining": null,
+        "deathcup": false,
+        "deathcup_player": null,
+        "bitchcup": false,
+        "bitchcup_player": null,
+        "nacktemeile_overall": false,
+        "nacktemeile_player": null,
+        "overtime": false
+      }
+    ]
   },
   "bets": {
-    "next_id": 1,
-    "items": []
+    "next_id": 2,
+    "items": [
+      {
+        "id": 1,
+        "match_id": 1,
+        "bettor_id": 1,
+        "quota": 1.8854047497863047,
+        "amount": 2.0,
+        "team": "Team 1",
+        "bet_type": "normal",
+        "player_id": null,
+        "handicap": null
+      }
+    ]
   }
 }

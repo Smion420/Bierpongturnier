@@ -1,0 +1,3 @@
+([('main',
+   '/Users/smion/Library/CloudStorage/OneDrive-Persönlich/Documents/Python/Bierpongturnier/project/dist/main',
+   'EXECUTABLE')],)
