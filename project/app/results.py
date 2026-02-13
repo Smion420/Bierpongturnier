@@ -33,3 +33,8 @@ class QuotasListed:
         # quotas: list of tuples (description:str, quota: float|None)
         self.match = match
         self.quotas = quotas
+
+class MatchEnded:
+    def __init__(self, match_id: int, payouts: dict[int, float]):
+        self.match_id = match_id
+        self.payouts = payouts

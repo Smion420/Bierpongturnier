@@ -23,7 +23,13 @@ class BetRepositoryMemory:
 		return list(self._bets.values())
 
 	def list_by_match(self, match_id: int) -> list[Bet]:
-		return [b for b in self._bets.values() if getattr(b, "match", None) and getattr(b.match, "id", None) == match_id]
+		bets = []
+		for bet in self._bets.values():
+			if getattr(bet, "match_id", None) == match_id:
+				bets.append(bet)
+		return bets
+
+		
 	
 	def export_state(self) -> dict:
 			return {

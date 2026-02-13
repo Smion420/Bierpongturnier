@@ -1,4 +1,4 @@
-from app.results import PlayersListed, MatchesListed, BettorsListed, BetPlaced, QuotasListed
+from app.results import MatchEnded, PlayersListed, MatchesListed, BettorsListed, BetPlaced, QuotasListed
 
 
 def render_result(result):
@@ -51,3 +51,7 @@ def render_result(result):
                 continue
             else:
                 print(f"- {desc}: {q:.2f}")
+    elif isinstance(result, MatchEnded):
+        print(f"Match ID {result.match_id} beendet. Auszahlungen:")
+        for bettor_id, payout in result.payouts.items():
+            print(f"- Bettor ID {bettor_id}: Auszahlung {payout:.2f}")

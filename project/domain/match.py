@@ -12,7 +12,6 @@ class Match:
             raise ValueError("Each team must have exactly 2 players.")
         self.team1 = team1_players
         self.team2 = team2_players
-        self.bets: List[int] = []
         self.ended = False
         #results
         self.winner: Optional[Team] = None
@@ -61,9 +60,9 @@ def compute_payouts(match: Match, bets: List) -> Dict[str, float]:
 
     Rewritten with `match/case` for clarity.
     """
-    payouts: Dict[str, float] = {}
+    payouts: Dict[int, float] = {}
 
-    for bet in match.bets:
+    for bet in bets:
         payout = 0.0
         match bet.bet_type:
             case BetType.NORMAL:
@@ -73,19 +72,19 @@ def compute_payouts(match: Match, bets: List) -> Dict[str, float]:
                 if match.deathcup:
                     payout = bet.amount * bet.quota
             case BetType.DEATHCUPSPECIFIC:
-                if bet.player and bet.player.name == match.deathcup_player:
+                if bet.player_id == match.deathcup_player:
                     payout = bet.amount * bet.quota
             case BetType.BITCHCUPOVERALL:
                 if match.bitchcup:
                     payout = bet.amount * bet.quota
             case BetType.BITCHCUPSPECIFIC:
-                if bet.player and bet.player.name == match.bitchcup_player:
+                if bet.player_id == match.bitchcup_player:
                     payout = bet.amount * bet.quota
             case BetType.NACKTEMEILEOVERALL:
                 if match.nacktemeile_overall:
                     payout = bet.amount * bet.quota
             case BetType.NACKTEMEILESPECIFIC:
-                if bet.player and bet.player.name == match.nacktemeile_player:
+                if bet.player_id == match.nacktemeile_player:
                     payout = bet.amount * bet.quota
             case BetType.OVERTIME:
                 if match.overtime:
@@ -93,7 +92,7 @@ def compute_payouts(match: Match, bets: List) -> Dict[str, float]:
             case BetType.HANDICAP:
                 if match.remaining is not None:
                     try:
-                        if int(match.remaining) > int(bet.details):
+                        if int(match.remaining) > int(bet.handicap.value):
                             payout = bet.amount * bet.quota
                     except Exception:
                         pass
@@ -102,7 +101,7 @@ def compute_payouts(match: Match, bets: List) -> Dict[str, float]:
                 pass
 
         payout -= bet.amount
-        if bet.bettor:
-            payouts[bet.bettor.name] = payouts.get(bet.bettor.name, 0.0) + payout
+        if bet.bettor_id is not None:
+            payouts[bet.bettor_id] = payouts.get(bet.bettor_id, 0.0) + payout
     return payouts
 

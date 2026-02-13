@@ -4,7 +4,7 @@ from adapters.match_repo_memory import MatchRepositoryMemory
 from adapters.bet_repo_memory import BetRepositoryMemory
 from app.service import AppService
 from ui_text.parser import parse_line
-from app.results import Ok, Error, PlayersListed, MatchesListed, BettorsListed, BetPlaced, QuotasListed
+from app.results import MatchEnded, Ok, Error, PlayersListed, MatchesListed, BettorsListed, BetPlaced, QuotasListed
 from ui_text.renderer import render_result
 
 def main():
@@ -29,7 +29,7 @@ def main():
             print(result.message)
         elif isinstance(result, Error):
             print(f"[{result.code}] {result.message}")
-        elif isinstance(result, PlayersListed) or isinstance(result, MatchesListed) or isinstance(result, BettorsListed) or isinstance(result, BetPlaced) or isinstance(result, QuotasListed):
+        elif isinstance(result, PlayersListed) or isinstance(result, MatchesListed) or isinstance(result, BettorsListed) or isinstance(result, BetPlaced) or isinstance(result, QuotasListed) or isinstance(result, MatchEnded):
             render_result(result)
         else:
             print("Unerwartetes Ergebnis")

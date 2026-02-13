@@ -149,9 +149,9 @@ def parse_line(line: str):
             # winner
             winner_raw = parts[idx].lower()
             if winner_raw in ("team1", "1"):
-                winner = "Team 1"
+                winner = Team.TEAM1
             elif winner_raw in ("team2", "2"):
-                winner = "Team 2"
+                winner = Team.TEAM2
             else:
                 return ("error", "winner must be 'team1' or 'team2'")
             idx += 1

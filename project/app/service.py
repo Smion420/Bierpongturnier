@@ -1,5 +1,5 @@
 from app.commands import CreatePlayer, CreateMatch, CreateBettor, ListPlayers, ListMatches, ListBettors, Load, Save, Create_Bet, Quotas, EndMatch
-from app.results import Ok, Error, PlayersListed, MatchesListed, BettorsListed, BetPlaced, QuotasListed
+from app.results import MatchEnded, Ok, Error, PlayersListed, MatchesListed, BettorsListed, BetPlaced, QuotasListed
 from domain.enums import BetType, Team, HandicapType
 from domain.player import Player
 from domain.match import Match, compute_payouts
@@ -201,53 +201,21 @@ class AppService:
 		match.bitchcup = bool(cmd.bitchcup)
 		match.nacktemeile_overall = bool(cmd.nacktemeile_overall)
 		match.overtime = bool(cmd.overtime)
-
-		# convert player ids to names (or None)
-		if cmd.deathcup_player_id is not None:
-			p = self.player_repo.get(cmd.deathcup_player_id)
-			match.deathcup_player = p.name if p else None
-		else:
-			match.deathcup_player = None
-
-		if cmd.bitchcup_player_id is not None:
-			p = self.player_repo.get(cmd.bitchcup_player_id)
-			match.bitchcup_player = p.name if p else None
-		else:
-			match.bitchcup_player = None
-
-		if cmd.nacktemeile_player_id is not None:
-			p = self.player_repo.get(cmd.nacktemeile_player_id)
-			match.nacktemeile_player = p.name if p else None
-		else:
-			match.nacktemeile_player = None
-
+		match.deathcup_player = cmd.deathcup_player_id if cmd.deathcup else None
+		match.bitchcup_player = cmd.bitchcup_player_id if cmd.bitchcup else None
+		match.nacktemeile_player = cmd.nacktemeile_player_id if cmd.nacktemeile_overall else None
 		# gather bets for this match and attach bettor/player objects so compute_payouts can use them
 		bets = []
 		bets = self.bet_repo.list_by_match(match.id)
 
-		for b in bets:
-			# attach bettor and player objects for compatibility with compute_payouts
-			try:
-				if getattr(b, 'bettor_id', None) is not None:
-					b.bettor = self.bettor_repo.get(b.bettor_id)
-				else:
-					b.bettor = None
-				if getattr(b, 'player_id', None) is not None:
-					b.player = self.player_repo.get(b.player_id)
-				else:
-					b.player = None
-			except Exception:
-				pass
-		
 
 		# compute payouts and apply to bettors in repo
 		payouts = compute_payouts(match, bets)
-		for bettor in self.bettor_repo.liste():
-			p = payouts.get(bettor.name, 0.0)
-			if p != 0.0:
-				bettor.kontostand += p
-
-		return Ok(message=f"Match {getattr(match, 'id', None)} beendet und Auszahlungen verarbeitet.")
+		for bettor_id, payout in payouts.items():
+			bettor = self.bettor_repo.get(bettor_id)
+			if bettor:
+				bettor.kontostand += payout
+		return MatchEnded(match_id=match.id, payouts=payouts)
 
 	def _quotas(self, cmd: Quotas):
 		# Determine match: by id or latest

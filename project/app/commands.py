@@ -45,7 +45,7 @@ class Quotas:
         self.match_id = match_id
 
 class EndMatch:
-    def __init__(self, match_id: Optional[int], winner, remaining: int, deathcup: bool, deathcup_player_id: Optional[int], bitchcup: bool, bitchcup_player_id: Optional[int], nacktemeile_overall: bool, nacktemeile_player_id: Optional[int], overtime: bool):
+    def __init__(self, match_id: Optional[int], winner: Team, remaining: int, deathcup: bool, deathcup_player_id: Optional[int], bitchcup: bool, bitchcup_player_id: Optional[int], nacktemeile_overall: bool, nacktemeile_player_id: Optional[int], overtime: bool):
         self.match_id = match_id
         self.winner = winner
         self.remaining = remaining
