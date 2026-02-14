@@ -11,7 +11,7 @@
             "request": "launch",
             "console": "integratedTerminal",
             "cwd": "${workspaceFolder}\\project",
-            "module": "ui_text.main"
+            "module": "gui.main"
         }
     ]
 }

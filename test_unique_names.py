@@ -1,4 +1,4 @@
-from main import Player, Bettor
+from test import Player, Bettor
 
 # This simple test creates small in-memory players and bettors dicts and simulates the CLI checks
 players = {}

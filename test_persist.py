@@ -1,4 +1,4 @@
-from main import Player, Match, Bettor, save_state, load_state, BetType
+from test import Player, Match, Bettor, save_state, load_state, BetType
 
 # Setup
 players = {
