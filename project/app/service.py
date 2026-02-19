@@ -12,6 +12,7 @@ from ports.match_repo import MatchRepository
 from ports.bet_repo import BetRepository
 from adapters.snapshot import JsonSnapshotStore
 from pathlib import Path
+from datetime import datetime
 
 
 class AppService:
@@ -215,6 +216,10 @@ class AppService:
 			bettor = self.bettor_repo.get(bettor_id)
 			if bettor:
 				bettor.kontostand += payout
+		#Zwischenspeichern, damit keine Krisen mehr passieren
+		now = datetime.now().strftime("%Y-%m-%d-%H-%M-%S")
+		
+		self._save_snapshot(Save(name=f"autosave/{now}.json"))
 		return MatchEnded(match_id=match.id, payouts=payouts)
 
 	def _quotas(self, cmd: Quotas):

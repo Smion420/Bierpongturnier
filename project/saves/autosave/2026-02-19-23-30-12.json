@@ -1,0 +1,450 @@
+{
+  "meta": {
+    "version": 1
+  },
+  "players": {
+    "next_id": 16,
+    "items": [
+      {
+        "id": 1,
+        "name": "Sammy",
+        "rating": 1855,
+        "matchamount": 4,
+        "rd": 172.41379310344828
+      },
+      {
+        "id": 2,
+        "name": "Smion",
+        "rating": 1765,
+        "matchamount": 20,
+        "rd": 111.11111111111111
+      },
+      {
+        "id": 3,
+        "name": "Kaktus",
+        "rating": 1705,
+        "matchamount": 8,
+        "rd": 151.5151515151515
+      },
+      {
+        "id": 4,
+        "name": "Phil",
+        "rating": 1633,
+        "matchamount": 1,
+        "rd": 192.30769230769232
+      },
+      {
+        "id": 5,
+        "name": "Leo",
+        "rating": 1527,
+        "matchamount": 17,
+        "rd": 119.04761904761905
+      },
+      {
+        "id": 6,
+        "name": "Thomas",
+        "rating": 1472,
+        "matchamount": 7,
+        "rd": 156.25
+      },
+      {
+        "id": 7,
+        "name": "Vinne",
+        "rating": 1471,
+        "matchamount": 4,
+        "rd": 172.41379310344828
+      },
+      {
+        "id": 8,
+        "name": "Benno",
+        "rating": 1338,
+        "matchamount": 6,
+        "rd": 161.29032258064515
+      },
+      {
+        "id": 9,
+        "name": "Karstn",
+        "rating": 1315,
+        "matchamount": 9,
+        "rd": 147.05882352941177
+      },
+      {
+        "id": 10,
+        "name": "Julia",
+        "rating": 1185,
+        "matchamount": 5,
+        "rd": 166.66666666666666
+      },
+      {
+        "id": 11,
+        "name": "Edon",
+        "rating": 1500,
+        "matchamount": 0,
+        "rd": 200.0
+      },
+      {
+        "id": 12,
+        "name": "Simon",
+        "rating": 1500,
+        "matchamount": 0,
+        "rd": 200.0
+      },
+      {
+        "id": 13,
+        "name": "Annika",
+        "rating": 1500,
+        "matchamount": 0,
+        "rd": 200.0
+      },
+      {
+        "id": 14,
+        "name": "Sabrina",
+        "rating": 1500,
+        "matchamount": 0,
+        "rd": 200.0
+      },
+      {
+        "id": 15,
+        "name": "Jonas",
+        "rating": 1500,
+        "matchamount": 0,
+        "rd": 200.0
+      }
+    ]
+  },
+  "bettors": {
+    "next_id": 10,
+    "items": [
+      {
+        "id": 1,
+        "name": "Smion",
+        "kontostand": -9.0
+      },
+      {
+        "id": 2,
+        "name": "Sev",
+        "kontostand": 0.7216452590755826
+      },
+      {
+        "id": 3,
+        "name": "Simon",
+        "kontostand": -2.0
+      },
+      {
+        "id": 4,
+        "name": "Edon",
+        "kontostand": -6.0
+      },
+      {
+        "id": 5,
+        "name": "Julia",
+        "kontostand": 2.9479953278545574
+      },
+      {
+        "id": 6,
+        "name": "Thomas",
+        "kontostand": -2.0
+      },
+      {
+        "id": 7,
+        "name": "Benno",
+        "kontostand": 3.1620424969934824
+      },
+      {
+        "id": 8,
+        "name": "Kaktus",
+        "kontostand": 4.734952905475158
+      },
+      {
+        "id": 9,
+        "name": "Luffner",
+        "kontostand": 1.5250209296208923
+      }
+    ]
+  },
+  "matches": {
+    "next_id": 5,
+    "items": [
+      {
+        "id": 1,
+        "team1": [
+          2,
+          12
+        ],
+        "team2": [
+          5,
+          1
+        ],
+        "bets": [],
+        "ended": true,
+        "winner": "Team 2",
+        "remaining": 0,
+        "deathcup": false,
+        "deathcup_player": null,
+        "bitchcup": false,
+        "bitchcup_player": null,
+        "nacktemeile_overall": false,
+        "nacktemeile_player": null,
+        "overtime": false
+      },
+      {
+        "id": 2,
+        "team1": [
+          2,
+          14
+        ],
+        "team2": [
+          9,
+          5
+        ],
+        "bets": [],
+        "ended": true,
+        "winner": "Team 2",
+        "remaining": 1,
+        "deathcup": false,
+        "deathcup_player": null,
+        "bitchcup": false,
+        "bitchcup_player": null,
+        "nacktemeile_overall": false,
+        "nacktemeile_player": null,
+        "overtime": true
+      },
+      {
+        "id": 3,
+        "team1": [
+          2,
+          11
+        ],
+        "team2": [
+          5,
+          15
+        ],
+        "bets": [],
+        "ended": true,
+        "winner": "Team 2",
+        "remaining": 4,
+        "deathcup": false,
+        "deathcup_player": null,
+        "bitchcup": false,
+        "bitchcup_player": null,
+        "nacktemeile_overall": false,
+        "nacktemeile_player": null,
+        "overtime": false
+      },
+      {
+        "id": 4,
+        "team1": [
+          3,
+          15
+        ],
+        "team2": [
+          1,
+          12
+        ],
+        "bets": [],
+        "ended": true,
+        "winner": "Team 2",
+        "remaining": 4,
+        "deathcup": false,
+        "deathcup_player": null,
+        "bitchcup": false,
+        "bitchcup_player": null,
+        "nacktemeile_overall": false,
+        "nacktemeile_player": null,
+        "overtime": false
+      }
+    ]
+  },
+  "bets": {
+    "next_id": 18,
+    "items": [
+      {
+        "id": 1,
+        "match_id": 1,
+        "bettor_id": 1,
+        "quota": 1.8854047497863047,
+        "amount": 2.0,
+        "team": "Team 1",
+        "bet_type": "normal",
+        "player_id": null,
+        "handicap": null
+      },
+      {
+        "id": 2,
+        "match_id": 1,
+        "bettor_id": 2,
+        "quota": 3.080273992005116,
+        "amount": 1.0,
+        "team": null,
+        "bet_type": "bitchcup_overall",
+        "player_id": null,
+        "handicap": null
+      },
+      {
+        "id": 3,
+        "match_id": 1,
+        "bettor_id": 2,
+        "quota": 1.774654677980551,
+        "amount": 1.0,
+        "team": "Team 2",
+        "bet_type": "normal",
+        "player_id": null,
+        "handicap": null
+      },
+      {
+        "id": 4,
+        "match_id": 2,
+        "bettor_id": 3,
+        "quota": 9.510956254365906,
+        "amount": 2.0,
+        "team": null,
+        "bet_type": "bitchcup_specific",
+        "player_id": 5,
+        "handicap": null
+      },
+      {
+        "id": 5,
+        "match_id": 2,
+        "bettor_id": 4,
+        "quota": 4.376299088476066,
+        "amount": 1.0,
+        "team": "Team 1",
+        "bet_type": "handicap",
+        "player_id": null,
+        "handicap": 2.5
+      },
+      {
+        "id": 6,
+        "match_id": 2,
+        "bettor_id": 4,
+        "quota": 4.376299088476066,
+        "amount": 1.0,
+        "team": "Team 1",
+        "bet_type": "handicap",
+        "player_id": null,
+        "handicap": 2.5
+      },
+      {
+        "id": 7,
+        "match_id": 2,
+        "bettor_id": 1,
+        "quota": 4.376299088476066,
+        "amount": 2.0,
+        "team": "Team 1",
+        "bet_type": "handicap",
+        "player_id": null,
+        "handicap": 2.5
+      },
+      {
+        "id": 8,
+        "match_id": 2,
+        "bettor_id": 5,
+        "quota": 2.054014165664494,
+        "amount": 1.0,
+        "team": "Team 2",
+        "bet_type": "normal",
+        "player_id": null,
+        "handicap": null
+      },
+      {
+        "id": 9,
+        "match_id": 2,
+        "bettor_id": 6,
+        "quota": 1.6473692720981288,
+        "amount": 2.0,
+        "team": "Team 1",
+        "bet_type": "normal",
+        "player_id": null,
+        "handicap": null
+      },
+      {
+        "id": 10,
+        "match_id": 2,
+        "bettor_id": 7,
+        "quota": 2.054014165664494,
+        "amount": 3.0,
+        "team": "Team 2",
+        "bet_type": "normal",
+        "player_id": null,
+        "handicap": null
+      },
+      {
+        "id": 11,
+        "match_id": 3,
+        "bettor_id": 1,
+        "quota": 1.723345096564364,
+        "amount": 5.0,
+        "team": "Team 1",
+        "bet_type": "normal",
+        "player_id": null,
+        "handicap": null
+      },
+      {
+        "id": 12,
+        "match_id": 3,
+        "bettor_id": 4,
+        "quota": 1.723345096564364,
+        "amount": 2.0,
+        "team": "Team 1",
+        "bet_type": "normal",
+        "player_id": null,
+        "handicap": null
+      },
+      {
+        "id": 13,
+        "match_id": 3,
+        "bettor_id": 4,
+        "quota": 11.099769616862142,
+        "amount": 2.0,
+        "team": null,
+        "bet_type": "bitchcup_specific",
+        "player_id": 15,
+        "handicap": null
+      },
+      {
+        "id": 14,
+        "match_id": 3,
+        "bettor_id": 8,
+        "quota": 1.9469905810950316,
+        "amount": 5.0,
+        "team": "Team 2",
+        "bet_type": "normal",
+        "player_id": null,
+        "handicap": null
+      },
+      {
+        "id": 15,
+        "match_id": 3,
+        "bettor_id": 5,
+        "quota": 1.9469905810950316,
+        "amount": 2.0,
+        "team": "Team 2",
+        "bet_type": "normal",
+        "player_id": null,
+        "handicap": null
+      },
+      {
+        "id": 16,
+        "match_id": 3,
+        "bettor_id": 2,
+        "quota": 1.9469905810950316,
+        "amount": 1.0,
+        "team": "Team 2",
+        "bet_type": "normal",
+        "player_id": null,
+        "handicap": null
+      },
+      {
+        "id": 17,
+        "match_id": 4,
+        "bettor_id": 9,
+        "quota": 1.7625104648104462,
+        "amount": 2.0,
+        "team": "Team 2",
+        "bet_type": "normal",
+        "player_id": null,
+        "handicap": null
+      }
+    ]
+  }
+}

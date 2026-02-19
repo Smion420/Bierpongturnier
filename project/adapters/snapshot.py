@@ -4,7 +4,16 @@ from adapters.bet_repo_memory import BetRepositoryMemory
 from adapters.match_repo_memory import MatchRepositoryMemory
 from adapters.player_repo_memory import PlayerRepositoryMemory
 from adapters.bettor_repo_memory import BettorRepositoryMemory
+from domain.enums import BetType, Team, HandicapType
 
+
+def enum_default(obj):
+    if isinstance(obj, Team):
+        return obj.value
+    if isinstance(obj, BetType):
+        return obj.value
+    if isinstance(obj, HandicapType):
+        return obj.value
 
 class JsonSnapshotStore:
     def __init__(self, path: str | Path):
@@ -25,8 +34,11 @@ class JsonSnapshotStore:
             "matches": match_repo.export_state(),
             "bets": bet_repo.export_state(),
         }
-
-        self.path.write_text(json.dumps(payload, indent=2), encoding="utf-8")
+        try:
+            self.path.write_text(json.dumps(payload, indent=2, default=enum_default), encoding="utf-8")
+        except Exception as e:
+            print(f"Fehler beim Speichern des Snapshots: {e}")
+            raise
 
     def load(
         self,

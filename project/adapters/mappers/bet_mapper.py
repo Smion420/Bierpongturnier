@@ -1,4 +1,5 @@
 from domain.bet import Bet
+from domain.enums import BetType, Team, HandicapType
 
 def bet_to_dict(b: Bet) -> dict:
 	return {
@@ -8,10 +9,10 @@ def bet_to_dict(b: Bet) -> dict:
 		"bettor_id": getattr(b, "bettor_id", None),
 		"quota": getattr(b, "quota", None),
 		"amount": getattr(b, "amount", None),
-		"team": getattr(b, "team", None).value if getattr(b, "team", None) else None,
-		"bet_type": getattr(b, "bet_type", None).value if getattr(b, "bet_type", None) else None,
+		"team": getattr(b, "team", None),
+		"bet_type": getattr(b, "bet_type", None),
 		"player_id": getattr(b, "player_id", None),
-		"handicap": getattr(b, "handicap", None).value if getattr(b, "handicap", None) else None,
+		"handicap": getattr(b, "handicap", None),
 	}
 
 def bet_from_dict(d: dict) -> Bet:
