@@ -8,9 +8,8 @@ from adapters.match_repo_memory import MatchRepositoryMemory
 from adapters.bet_repo_memory import BetRepositoryMemory
 from app.results import MatchEnded, PlayersListed, MatchesListed, BettorsListed, BetPlaced, QuotasListed, Ok, Error
 from domain.enums import BetType, HandicapType
-# ---- HIER EINHÄNGEN: deinen echten Service erzeugen / importieren ----
 from app.service import AppService
-# --------------------------------------------------------------------
+
 
 
 def main(page: ft.Page):
@@ -829,7 +828,3 @@ def main(page: ft.Page):
         refresh_bettor_dropdowns()
     except Exception:
         pass
-
-
-if __name__ == "__main__":
-    ft.app(main)

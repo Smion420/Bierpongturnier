@@ -7,8 +7,8 @@ from domain.player import Player
 #Es ist bisschen cursed, dass manche bases immer größer 1 sind und manche kleiner 1. Aber das kommt daher, dass sie teilweise als Quote und teilweise als Gewinnwahrschienlichkeit implementiert sind. 
 se = 1500 #Start Elo
 rd = 150 #Unsicherheit der Vorhersage, wäre bei ca 30, wenn es sehr sicher ist. Sehr unsicher zwischen 100 und 150\\
-bank_bonus_lower = 1.15 #Untergrenze des dynamischen Bankvorteils\
-bank_bonus_upper = 1.4 #Obergrenze des dynamischen Bankvorteils\
+bank_bonus_lower = 1 #Untergrenze des dynamischen Bankvorteils\
+bank_bonus_upper = 1.2 #Obergrenze des dynamischen Bankvorteils\
 p0 = 0.9512 #0.5 Perzentil der Normalverteilung mit mittelwert = 2.14 und std = 0.99
 p1 = 0.74101 #1.5 Perzentil
 p2 = 0.35806 #2.5 Perzentil

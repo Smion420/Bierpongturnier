@@ -12,6 +12,14 @@
             "console": "integratedTerminal",
             "cwd": "${workspaceFolder}\\project",
             "module": "gui.main"
+        },
+        {
+            "name": "main",
+            "type": "python",
+            "request": "launch",
+            "cwd": "${workspaceFolder}\\project",
+            "module": "gui.main",
+            "console": "integratedTerminal",
         }
     ]
 }
